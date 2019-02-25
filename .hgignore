@@ -1,0 +1,11 @@
+syntax: glob
+.vs
+Beavers.Editor.csproj
+*.csproj
+Beavers.sln
+Beavers.userprefs
+Library
+Logs
+Packages
+*.zip
+*.doc
