@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: ae7ea3abbfa01b446b222d5fe7fcd8a6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - new_game_btn: {instanceID: 0}
+  - sound_btn: {instanceID: 0}
+  - facebook_btn: {instanceID: 0}
+  - twitter_btn: {instanceID: 0}
+  - background_music: {instanceID: 0}
+  - sound_off: {fileID: 21300000, guid: 7111b4c218dde314baa0802e0a35f337, type: 3}
+  - sound_on: {fileID: 21300000, guid: fc91b7122fbed4a479259ee13c6ee83a, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
