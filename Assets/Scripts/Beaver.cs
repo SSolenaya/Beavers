@@ -11,7 +11,7 @@ namespace Assets.Scripts
 
         public void Start()
         {
-
+            coroMove = StartCoroutine(IEnumMove(0));
         }
 
         public void StopCoroMove()
