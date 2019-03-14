@@ -14,7 +14,7 @@ public class Beaver_Controller : MonoBehaviour
     public bool Status_of_Beaver()
     {
         var temp = Random.value;
-        status_of_beaver = temp > ? true : false;
+        status_of_beaver = temp > 2 ? true : false;
         return status_of_beaver;
     }
 
