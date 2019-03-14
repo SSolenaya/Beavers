@@ -1,64 +1,71 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Assets.Scripts;
+﻿using Assets.Scripts;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class UI : MonoBehaviour
-{
+public class UI: MonoBehaviour {
 
-    public Button btn_play_game;
-    public Button btn_facebook;
-    public Button btn_twitter;
-    public Button btn_sound;
+    public Button btnPlayGame;
+    public Button btnFacebook;
+    public Button btnTwitter;
+    public Button btnSound;
 
-    [SerializeField]private bool is_sound_on = true;
+    public Button btnEasy;
+    public Button btnMedium;
+    public Button btnHard;
 
-    public Sprite sound_off;
-    public Sprite sound_on;
+    [SerializeField] private bool isSoundOn = true;
 
-    
+    public Sprite soundOff;
+    public Sprite soundOn;
 
-    
     void Start () {
 
-        btn_play_game.onClick.RemoveAllListeners();
-        btn_play_game.onClick.AddListener(() => { SceneManager.LoadScene("game");});
+        btnPlayGame.onClick.RemoveAllListeners();
+        btnPlayGame.onClick.AddListener(() => {
 
-        btn_twitter.onClick.RemoveAllListeners();
-        btn_twitter.onClick.AddListener(() => { Application.OpenURL("http://twitter.com/"); });
+            SceneManager.LoadScene("game", LoadSceneMode.Single);
+        });
 
-        btn_facebook.onClick.RemoveAllListeners();
-        btn_facebook.onClick.AddListener(() => { Application.OpenURL("http://facebook.com/"); });
+        btnTwitter.onClick.RemoveAllListeners();
+        btnTwitter.onClick.AddListener(() => { Application.OpenURL("http://twitter.com/"); });
 
-        btn_sound.onClick.RemoveAllListeners();
-        btn_sound.onClick.AddListener(() =>
-        {
-            if (is_sound_on)
-            {
-                btn_sound.image.sprite = sound_off;
-                is_sound_on = false;
-                Sound_Controller.inst.Switch_sound(is_sound_on);
-                
+        btnFacebook.onClick.RemoveAllListeners();
+        btnFacebook.onClick.AddListener(() => { Application.OpenURL("http://facebook.com/"); });
 
-            }
-            else
-            {
-                btn_sound.image.sprite = sound_on;
-                is_sound_on = true;
-                Sound_Controller.inst.Switch_sound(is_sound_on);
+        btnSound.onClick.RemoveAllListeners();
+        btnSound.onClick.AddListener(() => {
+            if(isSoundOn) {
+                btnSound.image.sprite = soundOff;
+                isSoundOn = false;
+                SoundController.inst.SwitchSound(isSoundOn);
+
+
+            } else {
+                btnSound.image.sprite = soundOn;
+                isSoundOn = true;
+                SoundController.inst.SwitchSound(isSoundOn);
             }
 
         });
 
-       
+        btnEasy.onClick.RemoveAllListeners();
+        btnEasy.onClick.AddListener(() => { LevelController.inst.EasyLevel(); });
+
+        btnMedium.onClick.RemoveAllListeners();
+        btnMedium.onClick.AddListener(() => { LevelController.inst.MediumLevel(); });
+
+        btnHard.onClick.RemoveAllListeners();
+        btnHard.onClick.AddListener(() => { LevelController.inst.HardLevel(); });
+
     }
-	
-	
-	void Update () {
-	 
+
+
+
+
+    void Update () {
+
 
     }
 }

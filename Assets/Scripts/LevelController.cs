@@ -1,8 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Hole : MonoBehaviour
+public class LevelController : MonoBehaviour
 {
 
     public float K; // промежуток времени между появлением порций бобров
@@ -14,7 +13,7 @@ public class Hole : MonoBehaviour
     public float coefSeries; // множитель очков за успешную серию действий игрока
     public float deltaCoefSeries;
 
-    public static Level Controller inst;
+    public static LevelController inst;
 
         void Awake()
     {
@@ -27,7 +26,7 @@ public class Hole : MonoBehaviour
         K = 4;
         M = 4;
         N = 1;
-        deltaKandM = 1.25;
+        deltaKandM = 1.25f;
         timeToChange = 120;
 
         pointsForBeaver = 100;
@@ -40,11 +39,11 @@ public class Hole : MonoBehaviour
         K = 3;
         M = 3;
         N = 1;
-        deltaKandM = 1.5;
+        deltaKandM = 1.5f;
         timeToChange = 90;
 
         pointsForBeaver = 200;
-        coefSeries = 1.25;
+        coefSeries = 1.25f;
         deltaCoefSeries = 0.5f;
     }
 
@@ -53,11 +52,11 @@ public class Hole : MonoBehaviour
         K = 2;
         M = 2;
         N = 2;
-        deltaKandM = 1.75;
+        deltaKandM = 1.75f;
         timeToChange = 60;
 
         pointsForBeaver = 300;
-        coefSeries = 1.5;
+        coefSeries = 1.5f;
         deltaCoefSeries = 0.75f;
     }
 

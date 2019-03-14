@@ -1,29 +1,23 @@
-﻿using System.Runtime.CompilerServices;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Assets.Scripts
-{
-    public class Sound_Controller: MonoBehaviour
-    {
-        public static Sound_Controller inst;
-        public AudioSource background_music;
+namespace Assets.Scripts {
+    public class SoundController: MonoBehaviour {
+        public static SoundController inst;
+        public AudioSource backgroundMusic;
 
-        public void Awake()
-        {
+        public void Awake () {
             inst = this;
         }
 
-        public void Switch_sound(bool status_of_sound)
-        {
-            background_music.mute = !status_of_sound;
+        public void SwitchSound (bool statusOfSound) {
+            backgroundMusic.mute = !statusOfSound;
         }
 
-        public void Start()
-        {
-            
+        public void Start () {
+
         }
 
     }
 
-    
+
 }

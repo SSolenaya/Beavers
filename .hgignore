@@ -9,3 +9,6 @@ Logs
 Packages
 *.zip
 *.doc
+obj
+Assets/graphics
+beavers.sln
