@@ -6,34 +6,12 @@ public class Hole : MonoBehaviour
 
 {
 
-    //public int posX;
-    //public int posY;
-    //public Vector3 posOnField;
-
-    // public static Hole inst;
-
     public bool isEmpty;
    
-    public Vector3 PositionOfHole()
+    public Transform PositionOfHole()
     {
-        isEmpty = false;
-        return transform.position;
+       return transform;
         
     }
 
-    /*void Awake()
-    {
-        inst = this;
-    }*/
-
-    void Start()
-    {
-        
-    }
-
-    
-    void Update()
-    {
-        
-    }
-}
+   }

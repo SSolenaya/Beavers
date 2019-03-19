@@ -1,10 +1,12 @@
 ﻿using Assets.Scripts;
+using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
-public class UI: MonoBehaviour {
+public class UI: MonoBehaviour
+{
 
     public Button btnPlayGame;
     public Button btnFacebook;
@@ -15,7 +17,11 @@ public class UI: MonoBehaviour {
     public Button btnMedium;
     public Button btnHard;
 
-    [SerializeField] private bool isSoundOn = true; //salt1 это лучше унести в SavePrefs
+    public Text easy;
+    public Text med;
+    public Text hard;
+
+    [SerializeField] private bool isSoundOn = true;
 
     public Sprite soundOff;
     public Sprite soundOn;
@@ -29,7 +35,11 @@ public class UI: MonoBehaviour {
         });
 
         btnTwitter.onClick.RemoveAllListeners();
-        btnTwitter.onClick.AddListener(() => { Application.OpenURL("http://twitter.com/"); });
+        btnTwitter.onClick.AddListener(() => {
+            
+            Application.OpenURL("http://twitter.com/");
+        });
+        
 
         btnFacebook.onClick.RemoveAllListeners();
         btnFacebook.onClick.AddListener(() => { Application.OpenURL("http://facebook.com/"); });
@@ -51,21 +61,36 @@ public class UI: MonoBehaviour {
         });
 
         btnEasy.onClick.RemoveAllListeners();
-        btnEasy.onClick.AddListener(() => { LevelController.inst.EasyLevel(); });
+        btnEasy.onClick.AddListener(() => {
+            btnEasy.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+            btnMedium.transform.localScale = new Vector3(1f, 1f, 1f);
+            btnHard.transform.localScale = new Vector3(1f, 1f, 1f);
+
+            LevelController.inst.EasyLevel();
+        });
+
+       
 
         btnMedium.onClick.RemoveAllListeners();
-        btnMedium.onClick.AddListener(() => { LevelController.inst.MediumLevel(); });
+        btnMedium.onClick.AddListener(() => {
+            btnEasy.transform.localScale = new Vector3(1f, 1f, 1f);
+            btnMedium.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+            btnHard.transform.localScale = new Vector3(1f, 1f, 1f);
+            LevelController.inst.MediumLevel();
+        });
 
         btnHard.onClick.RemoveAllListeners();
-        btnHard.onClick.AddListener(() => { LevelController.inst.HardLevel(); });
+        btnHard.onClick.AddListener(() => {
+            btnEasy.transform.localScale = new Vector3(1f, 1f, 1f);
+            btnMedium.transform.localScale = new Vector3(1f, 1f, 1f);
+            btnHard.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+            LevelController.inst.HardLevel();
+        });
+
+
+        
 
     }
 
 
-
-
-    void Update () { //salt2 если функции монобехевера не юзаются - хорошая практика их дропать
-
-
-    }
 }

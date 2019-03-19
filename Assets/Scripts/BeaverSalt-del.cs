@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class BeaverSalt : MonoBehaviour //salt3 данный класс не возможно будет вытянуть на сцену или если он уже вытянут там эррор. Из-за разности имён - BeaverSalt и BeaverSalt-del
+    public class BeaverSalt : MonoBehaviour 
     {
         public RectTransform img;
         public Coroutine coroMove;

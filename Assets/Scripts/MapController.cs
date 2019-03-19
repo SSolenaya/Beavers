@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapController : MonoBehaviour
-{
+public class MapController : MonoBehaviour {
 
+    public static MapController inst;
+
+    public void Awake() {
+        inst = this;
+    }
+    
     public List<Hole> map = new List<Hole>();
 
 
 
-    public Vector3 SetPosToBeaver()
+    public Hole SetEmptyHole()
     {
         bool exit = false;
         while (!exit)
@@ -17,25 +22,13 @@ public class MapController : MonoBehaviour
             int temp = Random.Range(0, 15);
             if (map[temp].isEmpty)
             {
-                return map[temp].PositionOfHole();
-                exit = true;//salt7 - это никогда не выполнится
+                exit = true;
+                map[temp].isEmpty = false;
+                return map[temp];
             }
         }
 
-        return Vector3.zero;
+        return null;
     }
 
-
-
-
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

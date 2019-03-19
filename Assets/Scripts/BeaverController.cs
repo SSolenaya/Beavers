@@ -1,32 +1,40 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Beaver_Controller : MonoBehaviour
-{
+public class BeaverController : MonoBehaviour {
 
-    public Sprite red_beaver;
-    public Sprite white_beaver;
+    public GameObject prefab;
 
-    private bool status_of_beaver = true;
+    public static BeaverController inst;
 
-    public bool Status_of_Beaver()
-    {
-        var temp = Random.value;
-        status_of_beaver = temp > 2 ? true : false;
-        return status_of_beaver;
+    public void SetBeaversOnField () {
+
+        for (int i = 0; i < GP.beaversInPortion; i++) {
+
+            var emptyHole = MapController.inst.SetEmptyHole();
+            if (emptyHole != null) {
+                var beaver = Instantiate(prefab);
+                beaver.transform.SetParent(emptyHole.PositionOfHole());
+                beaver.transform.localPosition = Vector3.zero;
+                beaver.transform.localScale = Vector3.one;
+                beaver.gameObject.SetActive(true);
+                Beaver.inst.Setup(emptyHole);
+            }
+            else Debug.Log("Нет пустой ячейки");
+
+        }
+            
     }
-
-
     void Start()
     {
         
     }
 
     
-    void Update()
-    {
-        
+    void Awake() {
+        inst = this;
     }
 }
