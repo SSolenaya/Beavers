@@ -15,7 +15,7 @@ public class UI: MonoBehaviour {
     public Button btnMedium;
     public Button btnHard;
 
-    [SerializeField] private bool isSoundOn = true;
+    [SerializeField] private bool isSoundOn = true; //salt1 это лучше унести в SavePrefs
 
     public Sprite soundOff;
     public Sprite soundOn;
@@ -64,7 +64,7 @@ public class UI: MonoBehaviour {
 
 
 
-    void Update () {
+    void Update () { //salt2 если функции монобехевера не юзаются - хорошая практика их дропать
 
 
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 public class LevelController : MonoBehaviour
 {
 
-    public float K; // промежуток времени между появлением порций бобров
+    public float K; // промежуток времени между появлением порций бобров //salt4 - не называть так перменные - лучше timeBeetwenSpawnPackBeavers - суть в том что по названию перменной необходимо понять хотя бы % на 80 что это
     public float M; // задержка бобров на экране
     public float N; // количество бобров в порции - одновременно появляются на экране
     public float deltaKandM; // изменение К со временем игры - усложнение геймплея
@@ -23,7 +23,7 @@ public class LevelController : MonoBehaviour
 
     public void EasyLevel ()
     {
-        K = 4;
+        K = 4;//salt5 данные параметры необходимо вынести в GP - GlobalParams
         M = 4;
         N = 1;
         deltaKandM = 1.25f;
@@ -66,7 +66,7 @@ IEnumerator BeaversQuantity()
         while (PlayerController.inst.Alive)
         {
             N += 1;
-                
+                //salt6 - тут бесконечный цикл 
         }
     }
 
@@ -77,7 +77,7 @@ IEnumerator BeaversQuantity()
         {
             K /= deltaKandM;
             M /= deltaKandM;
-
+            //salt6 - тут бесконечный цикл 
         }
     }
 

@@ -18,7 +18,7 @@ public class Map_Controller : MonoBehaviour
             if (map[temp].isEmpty)
             {
                 return map[temp].PositionOfHole();
-                exit = true;
+                exit = true;//salt7 - это никогда не выполнится
             }
         }
 
