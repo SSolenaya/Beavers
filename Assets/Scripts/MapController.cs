@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Map_Controller : MonoBehaviour
+public class MapController : MonoBehaviour
 {
 
     public List<Hole> map = new List<Hole>();

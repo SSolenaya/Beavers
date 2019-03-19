@@ -8,7 +8,9 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController inst;
 
-    public bool Alive = true;
+    public bool alive = true; // наличие жизней
+
+    public int points;
 
     public List<Image> lives = new List<Image>();
 

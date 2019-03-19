@@ -18,6 +18,8 @@ public class LevelController : MonoBehaviour
         void Awake()
     {
         inst = this;
+
+        StopAllCoroutines();
     }
 
 
@@ -60,7 +62,7 @@ public class LevelController : MonoBehaviour
         deltaCoefSeries = 0.75f;
     }
 
-IEnumerator BeaversQuantity()
+public IEnumerator BeaversQuantity()
     {
         yield return new WaitForSeconds(timeToChange);
         while (PlayerController.inst.Alive)
@@ -70,7 +72,7 @@ IEnumerator BeaversQuantity()
         }
     }
 
-    IEnumerator IEnumGameMode()
+ public  IEnumerator IEnumGameMode()
     {
         yield return new WaitForSeconds(60f);
         while (PlayerController.inst.Alive)
