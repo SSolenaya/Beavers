@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Main_Menu : MonoBehaviour {
+public class Main_Menu: MonoBehaviour {
 
     public Button new_game_btn;
     public Button sound_btn;
@@ -22,45 +22,37 @@ public class Main_Menu : MonoBehaviour {
         sound_btn.onClick.AddListener(Sound);
         facebook_btn.onClick.AddListener(Facebook);
         twitter_btn.onClick.AddListener(Twitter);
-	}
-	
-    public void Play()
-    {
+    }
+
+    public void Play () {
         SceneManager.LoadScene("Game");
     }
 
-    public void Switch_sound(bool sound_game)
-    {
+    public void Switch_sound (bool sound_game) {
         background_music.mute = !sound_game;
     }
 
-    public void Sound()
-    {
-        if (sound)
-        {
+    public void Sound () {
+        if(sound) {
             sound_btn.image.sprite = sound_off;
             sound = false;
             Switch_sound(sound);
 
-        }
-        else
-        {
+        } else {
             sound_btn.image.sprite = sound_on;
             sound = true;
             Switch_sound(sound);
         }
     }
-    
-    public void Facebook()
-    {
+
+    public void Facebook () {
         Application.OpenURL("http://facebook.com/");
     }
-    public void Twitter()
-    {
+    public void Twitter () {
         Application.OpenURL("http://twitter.com/");
     }
 
-	void Update () {
-		
-	}
+    void Update () {
+
+    }
 }
