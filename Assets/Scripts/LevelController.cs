@@ -14,7 +14,7 @@ namespace Assets.Scripts {
         }
 
 
-        public void EasyLevel () {
+        public static void EasyLevel () {
             GP.timeBetweenBeaversPortions = 4;
             GP.beaversInPortion = 1;
             GP.delayBeaverOnField = 4;
@@ -26,7 +26,7 @@ namespace Assets.Scripts {
             GP.deltaCoefSeries = 0.25f;
         }
 
-        public void MediumLevel () {
+        public static void MediumLevel () {
             GP.timeBetweenBeaversPortions = 3;
             GP.beaversInPortion = 1;
             GP.delayBeaverOnField = 3;
@@ -38,7 +38,7 @@ namespace Assets.Scripts {
             GP.deltaCoefSeries = 0.5f;
         }
 
-        public void HardLevel () {
+        public static void HardLevel () {
             GP.timeBetweenBeaversPortions = 2;
             GP.beaversInPortion = 2;
             GP.delayBeaverOnField = 2;
@@ -74,11 +74,7 @@ namespace Assets.Scripts {
             StartCoroutine(IEnumGameMode());
 
         }
-
-
-        void Update () {
-
-        }
+        
     }
 
 }

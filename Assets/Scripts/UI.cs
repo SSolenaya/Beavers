@@ -66,7 +66,7 @@ public class UI: MonoBehaviour
             btnMedium.transform.localScale = new Vector3(1f, 1f, 1f);
             btnHard.transform.localScale = new Vector3(1f, 1f, 1f);
 
-            LevelController.inst.EasyLevel();
+            LevelController.EasyLevel();
         });
 
        
@@ -76,7 +76,7 @@ public class UI: MonoBehaviour
             btnEasy.transform.localScale = new Vector3(1f, 1f, 1f);
             btnMedium.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
             btnHard.transform.localScale = new Vector3(1f, 1f, 1f);
-            LevelController.inst.MediumLevel();
+            LevelController.MediumLevel();
         });
 
         btnHard.onClick.RemoveAllListeners();
@@ -84,7 +84,7 @@ public class UI: MonoBehaviour
             btnEasy.transform.localScale = new Vector3(1f, 1f, 1f);
             btnMedium.transform.localScale = new Vector3(1f, 1f, 1f);
             btnHard.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
-            LevelController.inst.HardLevel();
+            LevelController.HardLevel();
         });
 
 

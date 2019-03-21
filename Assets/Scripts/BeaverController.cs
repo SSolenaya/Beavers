@@ -4,37 +4,67 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BeaverController : MonoBehaviour {
+namespace Assets.Scripts {
 
-    public GameObject prefab;
+    public class BeaverController : MonoBehaviour {
 
-    public static BeaverController inst;
+        public Beaver prefabBeaver;
+        private List <Beaver> allBeavers = new List<Beaver>(15);
 
-    public void SetBeaversOnField () {
+        public static BeaverController inst;
 
-        for (int i = 0; i < GP.beaversInPortion; i++) {
+        public void SetBeaversOnField () {
 
-            var emptyHole = MapController.inst.SetEmptyHole();
-            if (emptyHole != null) {
-                var beaver = Instantiate(prefab);
-                beaver.transform.SetParent(emptyHole.PositionOfHole());
-                beaver.transform.localPosition = Vector3.zero;
-                beaver.transform.localScale = Vector3.one;
-                beaver.gameObject.SetActive(true);
-                Beaver.inst.Setup(emptyHole);
+            for(int i = 0; i < GP.beaversInPortion; i++) {
+
+                Hole emptyHole = MapController.inst.SetEmptyHole();
+                if(emptyHole != null) {
+                    var beaver = Instantiate(prefabBeaver);
+                    beaver.transform.SetParent(emptyHole.PositionOfHole());
+                    beaver.transform.localPosition = Vector3.zero;
+                    beaver.transform.localScale = Vector3.one;
+                    beaver.gameObject.SetActive(true);
+                    beaver.Setup(emptyHole);
+                    allBeavers.Add(beaver);
+                } else {
+                    Debug.Log("Нет пустой ячейки");
+                }
+
             }
-            else Debug.Log("Нет пустой ячейки");
 
         }
-            
-    }
-    void Start()
-    {
-        
-    }
 
-    
-    void Awake() {
-        inst = this;
+        public void CleaningField() {
+            foreach (var hb in allBeavers) {
+                if (hb.isHidden) {
+                    Destroy(hb);
+                    allBeavers.Remove(hb);
+                }
+            }
+        }
+
+        public IEnumerator IEnumRepeatPortion() {
+            while (MainLogic.inst.state) {
+                yield return new WaitForSeconds(GP.timeBetweenBeaversPortions);
+                SetBeaversOnField();
+                yield return null;
+            }
+            
+        }
+
+        public void StartGenerationOfBeavers() {
+            StopAllCoroutines();
+            CleaningField();
+            StartCoroutine(IEnumRepeatPortion());
+        }
+
+        void Start() {
+
+        }
+
+
+        void Awake() {
+            inst = this;
+        }
     }
 }
