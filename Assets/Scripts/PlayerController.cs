@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts {
 
@@ -9,32 +10,83 @@ namespace Assets.Scripts {
         public static PlayerController inst;
 
         public bool alive = true; // наличие жизней
-
+        public Text currentScoreText;
+        public Text highScoreText;
+        [SerializeField]private int highScore;
         public int points;
-        public int lives = GP.numOfLives;
+        private int _lives;
+
+        public int Lives {
+            get => _lives >= 0 ? _lives : 0;
+            set => _lives = value;
+        }
+           
 
         public List<Image> hearts = new List<Image>(GP.numOfLives);
 
         public int CountPoints() {
             points += GP.pointsForBeaver;
+            ShowScore();
             return points;
+
         }
 
         public void CountLives() {
-            lives -= 1;
-            hearts[lives].gameObject.SetActive(false);
-            if (lives == 0) {
+            Lives -= 1;
+            hearts[Lives].gameObject.SetActive(false);
+            if (_lives <= 0) {
+                alive = false;
                 MainLogic.inst.GameEnd();
             }
         }
 
         void Awake() {
             inst = this;
-            foreach (var heart in hearts) {
-                heart.gameObject.SetActive(true);
+            
+
+        }
+
+        public void ShowScore() {
+            currentScoreText.text = "Score: " + points;
+           }
+
+
+        public void SaveHighScore () {
+            if(points > highScore) {
+                PlayerPrefs.SetInt("High score", points);
+                PlayerPrefs.Save();
+                Debug.Log("New High score added to SavePrefs" + points);
             }
         }
 
+        public void LoadHighScoreFromPlayerPrefs() {
+            if(PlayerPrefs.HasKey("High score")) {
+                highScore = PlayerPrefs.GetInt("High score", 0);
+                highScoreText.text = "High score: " + highScore;
+                Debug.Log("New High score loaded from SavePrefs" + highScore);
+            } else {
+                highScoreText.text = "High score: " + 0;
+                Debug.Log("SavePrefs don't see key High score");
+            }
+        }
+
+        public void StateOnStart() {
+            Lives = GP.numOfLives;
+            points = 0;
+            foreach(var heart in hearts) {
+                heart.gameObject.SetActive(true);
+            }
+            ShowScore();
+            LoadHighScoreFromPlayerPrefs();
+
+        }
+
+        void Start() {
+            
+            StateOnStart();
+            
+
+        }
 
 
     }

@@ -9,9 +9,9 @@ namespace Assets.Scripts {
         public static LevelController inst;
 
         void Awake () {
-            inst = this;
             StopAllCoroutines();
-        }
+            inst = this;
+            }
 
 
         public static void EasyLevel () {
@@ -68,10 +68,20 @@ namespace Assets.Scripts {
             }
         }
 
-
-        void Start () {
+        public void ComplicatingGame() {
             StartCoroutine(BeaversQuantity());
             StartCoroutine(IEnumGameMode());
+        }
+
+        public static void Reset() {
+            if (inst != null) {
+                inst.StopAllCoroutines();   //bear
+            }
+            
+        }
+
+        void Start () {
+            ComplicatingGame();
 
         }
         

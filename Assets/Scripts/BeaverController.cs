@@ -1,17 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets.Scripts {
 
     public class BeaverController : MonoBehaviour {
 
         public Beaver prefabBeaver;
-        private List <Beaver> allBeavers = new List<Beaver>(15);
+        [SerializeField]private List <Beaver> allBeavers = new List<Beaver>(15);
 
         public static BeaverController inst;
+
+        public Coroutine coroGenBeavers;
 
         public void SetBeaversOnField () {
 
@@ -36,35 +36,44 @@ namespace Assets.Scripts {
 
         public void CleaningField() {
             foreach (var hb in allBeavers) {
-                if (hb.isHidden) {
-                    Destroy(hb);
-                    allBeavers.Remove(hb);
+                if (hb != null) {
+                    Destroy(hb.gameObject);
                 }
             }
+            allBeavers.Clear();
         }
 
-        public IEnumerator IEnumRepeatPortion() {
-            while (MainLogic.inst.state) {
-                yield return new WaitForSeconds(GP.timeBetweenBeaversPortions);
+        public IEnumerator IEnumRepeatPortion () {
+            while(MainLogic.inst.state) {
                 SetBeaversOnField();
-                yield return null;
+                yield return new WaitForSeconds(GP.timeBetweenBeaversPortions);
+
             }
-            
+
         }
 
         public void StartGenerationOfBeavers() {
-            StopAllCoroutines();
+            Reset();
+            coroGenBeavers = StartCoroutine(IEnumRepeatPortion());
+        }
+
+        public void StopGen () {
+            if(coroGenBeavers != null) {
+                StopCoroutine(coroGenBeavers);
+            }
+            coroGenBeavers = null;
+        }
+
+
+
+        public void Reset () {
+            StopGen();
             CleaningField();
-            StartCoroutine(IEnumRepeatPortion());
         }
-
-        void Start() {
-
-        }
-
 
         void Awake() {
             inst = this;
         }
+
     }
 }

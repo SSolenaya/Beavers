@@ -13,24 +13,17 @@ namespace Assets.Scripts {
         }
 
         public List<Hole> map = new List<Hole>();
+       [SerializeField] private List<Hole> emptyOnes = new List<Hole>();
 
         public Hole SetEmptyHole() {
-            bool exit = false;
-            while (!exit) {
-                int temp = Random.Range(0, 15);
-                if (map[temp].isEmpty) {
-                    exit = true;
-                    map[temp].isEmpty = false;
-                    return map[temp];
+            emptyOnes.Clear();
+            foreach (var m in map) {
+                if (m.isEmpty) {
+                    emptyOnes.Add(m);
                 }
-
-                Debug.Log("Hole  is null");
-                return null;
             }
-
-            return null;
-
+            int temp = Random.Range(0, emptyOnes.Count);
+            return emptyOnes.Count == 0 ? null : emptyOnes[temp];
         }
-
     }
 }
