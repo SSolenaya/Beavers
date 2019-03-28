@@ -10,6 +10,7 @@ public class Beaver: MonoBehaviour, IPointerClickHandler {
     public RectTransform pic;
     public Coroutine coroLife;
     public bool statusOfBeaver;
+    public bool isDead = false;
     //public bool isHidden = false;
     public Image img;
     public Sprite white;
@@ -41,11 +42,11 @@ public class Beaver: MonoBehaviour, IPointerClickHandler {
 
     public void DeleteHiddenBeaver () {
         myHole.isEmpty = true;
-        
+
         Destroy(gameObject);
     }
 
-    public void PointsForSkipBeaver() {
+    public void PointsForSkipBeaver () {
         if(statusOfBeaver) {
             PlayerController.inst.CountLives();
         } else {
@@ -80,7 +81,7 @@ public class Beaver: MonoBehaviour, IPointerClickHandler {
             currentY = Mathf.Lerp(startY, finalY, temp);
             pic.localPosition = new Vector3(0, currentY, 0);
             currentTime += Time.deltaTime;
-           // Debug.Log(finalY + " " + pic.localPosition);
+            // Debug.Log(finalY + " " + pic.localPosition);
             yield return null;
         }
 
@@ -91,12 +92,16 @@ public class Beaver: MonoBehaviour, IPointerClickHandler {
     public void OnPointerClick (PointerEventData pointerEventData) {
         StopCoroLife();
         coroLife = StartCoroutine(IEnumHideBeaver());
-
-        if(statusOfBeaver) {
-            PlayerController.inst.CountPoints();
-        } else {
-            PlayerController.inst.CountLives();
+        if (!isDead) {
+            if (statusOfBeaver) {
+                PlayerController.inst.CountPoints();
+            }
+            else {
+                PlayerController.inst.CountLives();
+            }
         }
+
+        isDead = true;
 
     }
 

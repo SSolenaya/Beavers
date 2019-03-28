@@ -21,10 +21,11 @@ public class UI: MonoBehaviour
     public Text med;
     public Text hard;
 
-    [SerializeField] private bool isSoundOn = true;
+    public static UI inst;
 
-    public Sprite soundOff;
-    public Sprite soundOn;
+    void Awake() {
+        inst = this;
+    }
 
     void Start () {
 
@@ -46,18 +47,7 @@ public class UI: MonoBehaviour
 
         btnSound.onClick.RemoveAllListeners();
         btnSound.onClick.AddListener(() => {
-            if(isSoundOn) {
-                btnSound.image.sprite = soundOff;
-                isSoundOn = false;
-                SoundController.inst.SwitchSound(isSoundOn);
-
-
-            } else {
-                btnSound.image.sprite = soundOn;
-                isSoundOn = true;
-                SoundController.inst.SwitchSound(isSoundOn);
-            }
-
+            SoundController.inst.SwitchSound();
         });
 
         btnEasy.onClick.RemoveAllListeners();
@@ -65,12 +55,9 @@ public class UI: MonoBehaviour
             btnEasy.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
             btnMedium.transform.localScale = new Vector3(1f, 1f, 1f);
             btnHard.transform.localScale = new Vector3(1f, 1f, 1f);
-
             LevelController.EasyLevel();
         });
-
-       
-
+        
         btnMedium.onClick.RemoveAllListeners();
         btnMedium.onClick.AddListener(() => {
             btnEasy.transform.localScale = new Vector3(1f, 1f, 1f);
@@ -87,7 +74,7 @@ public class UI: MonoBehaviour
             LevelController.HardLevel();
         });
 
-
+        btnEasy.onClick.Invoke();
         
 
     }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Assets.Scripts;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts {
     public class LevelController: MonoBehaviour {
@@ -8,10 +9,14 @@ namespace Assets.Scripts {
 
         public static LevelController inst;
 
+        public Text testText1; //bear
+        public Text testText2; //bear
+        public Text testText3; //bear
+
         void Awake () {
-            StopAllCoroutines();
+
             inst = this;
-            }
+        }
 
 
         public static void EasyLevel () {
@@ -55,7 +60,7 @@ namespace Assets.Scripts {
             while(PlayerController.inst.alive) {
                 yield return new WaitForSeconds(GP.timeToChangeN);
                 GP.beaversInPortion += 1;
-               
+
             }
         }
 
@@ -68,23 +73,28 @@ namespace Assets.Scripts {
             }
         }
 
-        public void ComplicatingGame() {
+        public void ComplicatingGame () {
             StartCoroutine(BeaversQuantity());
             StartCoroutine(IEnumGameMode());
         }
 
-        public static void Reset() {
-            if (inst != null) {
-                inst.StopAllCoroutines();   //bear
+        public static void Reset () {
+            if(inst != null) {
+                inst.StopAllCoroutines();
             }
-            
+
         }
 
         void Start () {
             ComplicatingGame();
-
         }
-        
+
+        void Update () {
+            testText1.text = "" + GP.beaversInPortion;
+            testText2.text = "" + GP.delayBeaverOnField;
+            testText3.text = "" + GP.timeBetweenBeaversPortions;
+        }
+
     }
 
 }
