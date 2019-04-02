@@ -14,6 +14,7 @@ namespace Assets.Scripts {
         public Text highScoreText;
         [SerializeField]private int highScore;
         public int points;
+        public float coefMultiplying = GP.coefSeries;
         private int _lives;
         public int lives {
             get => _lives >= 0 ? _lives : 0;
@@ -30,15 +31,24 @@ namespace Assets.Scripts {
                 coroHearts = null;
             }
         }*/
-
+        public void ScoreMultiplier(bool action) {
+            if (action) {
+                points += (int) (coefMultiplying * GP.pointsForBeaver);
+                coefMultiplying += GP.deltaCoefSeries;
+                }
+            else {
+                coefMultiplying = GP.coefSeries;
+            }
+        }
         public int CountPoints() {
-            points += GP.pointsForBeaver;
-            ShowScore();
+            ScoreMultiplier(true);
+            ShowScore(points);
             return points;
 
         }
 
         public void CountLives() {
+            ScoreMultiplier(false);
             lives -= 1;
            // StopCoroHearts();
             hearts[lives].HideHearts();
@@ -51,19 +61,18 @@ namespace Assets.Scripts {
             inst = this;
          }
 
-        public void ShowScore() {
-            var p = points;
+        public void ShowScore(int p) {
+            
             if(points <= 10000) { currentScoreText.text = "Score: " + p; }
             if(points >= 10000 && points <= 1000000) { currentScoreText.text = "Score: " + p/1000 + "K"; }
             if(points >= 1000000) { currentScoreText.text = "Score: " + p / 1000000 + "M"; }
 
         }
 
-        public void ShowHighScore () {
-            var hs = highScore;
-            if(highScore <= 10000) { currentScoreText.text = "Score: " + hs; }
-            if(highScore >= 10000 && highScore <= 1000000) { currentScoreText.text = "Score: " + hs / 1000 + "K"; }
-            if(highScore >= 1000000) { currentScoreText.text = "Score: " + hs / 1000000 + "M"; }
+        public void ShowHighScore (int hs) {
+            if(highScore <= 10000) { highScoreText.text = "Score: " + hs; }
+            if(highScore >= 10000 && highScore <= 1000000) { highScoreText.text = "Score: " + hs / 1000 + "K"; }
+            if(highScore >= 1000000) { highScoreText.text = "Score: " + hs / 1000000 + "M"; }
 
         }
 
@@ -79,22 +88,21 @@ namespace Assets.Scripts {
         public void LoadHighScoreFromPlayerPrefs() {
             if(PlayerPrefs.HasKey("High score")) {
                 highScore = PlayerPrefs.GetInt("High score", 0);
-                highScoreText.text = "High score: " + highScore;
+                ShowHighScore(highScore);
                 Debug.Log("New High score loaded from SavePrefs" + highScore); //bear
             } else {
-                highScoreText.text = "High score: " + 0;
+                ShowHighScore(0);
                 Debug.Log("SavePrefs don't see key High score"); //bear
             }
         }
 
         public void StateOnStart() {
             lives = GP.numOfLives;
-            points = 0;
             foreach(var heart in hearts) {
                // StopCoroHearts();
               heart.ShowHearts();
              }
-            ShowScore();
+            ShowScore(points = 0);
             LoadHighScoreFromPlayerPrefs();
 
         }

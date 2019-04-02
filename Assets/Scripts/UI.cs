@@ -31,22 +31,23 @@ public class UI: MonoBehaviour
 
         btnPlayGame.onClick.RemoveAllListeners();
         btnPlayGame.onClick.AddListener(() => {
-
             SceneManager.LoadScene("game", LoadSceneMode.Single);
         });
 
         btnTwitter.onClick.RemoveAllListeners();
         btnTwitter.onClick.AddListener(() => {
-            
             Application.OpenURL("http://twitter.com/");
         });
         
 
         btnFacebook.onClick.RemoveAllListeners();
-        btnFacebook.onClick.AddListener(() => { Application.OpenURL("http://facebook.com/"); });
+        btnFacebook.onClick.AddListener(() => {
+            Application.OpenURL("http://facebook.com/");
+        });
 
         btnSound.onClick.RemoveAllListeners();
         btnSound.onClick.AddListener(() => {
+           
             SoundController.inst.SwitchSound();
         });
 
