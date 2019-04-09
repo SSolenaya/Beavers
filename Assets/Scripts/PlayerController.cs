@@ -70,9 +70,9 @@ namespace Assets.Scripts {
         }
 
         public void ShowHighScore (int hs) {
-            if(highScore <= 10000) { highScoreText.text = "Score: " + hs; }
-            if(highScore >= 10000 && highScore <= 1000000) { highScoreText.text = "Score: " + hs / 1000 + "K"; }
-            if(highScore >= 1000000) { highScoreText.text = "Score: " + hs / 1000000 + "M"; }
+            if(highScore <= 10000) { highScoreText.text = "High score: " + hs; }
+            if(highScore >= 10000 && highScore <= 1000000) { highScoreText.text = "High score: " + hs / 1000 + "K"; }
+            if(highScore >= 1000000) { highScoreText.text = "High score: " + hs / 1000000 + "M"; }
 
         }
 

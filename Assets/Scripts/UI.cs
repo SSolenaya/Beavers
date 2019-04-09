@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class UI: MonoBehaviour
 {
 
+    public Button btnRules;
     public Button btnPlayGame;
     public Button btnFacebook;
     public Button btnTwitter;
@@ -17,10 +18,6 @@ public class UI: MonoBehaviour
     public Button btnMedium;
     public Button btnHard;
 
-    public Text easy;
-    public Text med;
-    public Text hard;
-
     public static UI inst;
 
     void Awake() {
@@ -28,6 +25,16 @@ public class UI: MonoBehaviour
     }
 
     void Start () {
+
+        btnRules.onClick.RemoveAllListeners();
+        btnRules.onClick.AddListener(() => {
+            SceneManager.LoadScene("rules", LoadSceneMode.Single);
+        });
+
+        btnTwitter.onClick.RemoveAllListeners();
+        btnTwitter.onClick.AddListener(() => {
+            Application.OpenURL("http://twitter.com/");
+        });
 
         btnPlayGame.onClick.RemoveAllListeners();
         btnPlayGame.onClick.AddListener(() => {

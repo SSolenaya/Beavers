@@ -9,10 +9,6 @@ namespace Assets.Scripts {
 
         public static LevelController inst;
 
-        public Text testText1; //bear
-        public Text testText2; //bear
-        public Text testText3; //bear
-
         void Awake () {
 
             inst = this;
@@ -20,9 +16,9 @@ namespace Assets.Scripts {
 
 
         public static void EasyLevel () {
-            GP.timeBetweenBeaversPortions = 4;
-            GP.beaversInPortion = 1;
-            GP.delayBeaverOnField = 4;
+            GP.timeBetweenPortions = 4;
+            GP.entitiesInPortion = 1;
+            GP.delayEntityOnField = 4;
             GP.complicationGameplayWithTime = 1.25f;
             GP.timeToChangeN = 120;
 
@@ -32,9 +28,9 @@ namespace Assets.Scripts {
         }
 
         public static void MediumLevel () {
-            GP.timeBetweenBeaversPortions = 3;
-            GP.beaversInPortion = 1;
-            GP.delayBeaverOnField = 3;
+            GP.timeBetweenPortions = 3;
+            GP.entitiesInPortion = 1;
+            GP.delayEntityOnField = 3;
             GP.complicationGameplayWithTime = 1.5f;
             GP.timeToChangeN = 90;
 
@@ -44,9 +40,9 @@ namespace Assets.Scripts {
         }
 
         public static void HardLevel () {
-            GP.timeBetweenBeaversPortions = 2;
-            GP.beaversInPortion = 2;
-            GP.delayBeaverOnField = 2;
+            GP.timeBetweenPortions = 2;
+            GP.entitiesInPortion = 2;
+            GP.delayEntityOnField = 2;
             GP.complicationGameplayWithTime = 1.75f;
             GP.timeToChangeN = 60;
 
@@ -59,7 +55,7 @@ namespace Assets.Scripts {
 
             while(PlayerController.inst.alive) {
                 yield return new WaitForSeconds(GP.timeToChangeN);
-                GP.beaversInPortion += 1;
+                GP.entitiesInPortion += 1;
 
             }
         }
@@ -68,8 +64,8 @@ namespace Assets.Scripts {
 
             while(PlayerController.inst.alive) {
                 yield return new WaitForSeconds(GP.timeToChangeKM);
-                GP.timeBetweenBeaversPortions /= GP.complicationGameplayWithTime;
-                GP.delayBeaverOnField /= GP.complicationGameplayWithTime;
+                GP.timeBetweenPortions /= GP.complicationGameplayWithTime;
+                GP.delayEntityOnField /= GP.complicationGameplayWithTime;
             }
         }
 
@@ -87,12 +83,6 @@ namespace Assets.Scripts {
 
         void Start () {
             ComplicatingGame();
-        }
-
-        void Update () {
-            testText1.text = "" + GP.beaversInPortion;
-            testText2.text = "" + GP.delayBeaverOnField;
-            testText3.text = "" + GP.timeBetweenBeaversPortions;
         }
 
     }

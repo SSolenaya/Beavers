@@ -9,16 +9,17 @@ public class Beaver: Entity {
 
     public Sprite white;
     public Sprite red;
-    
-    public void StatusOfBeaver () {
+
+
+    public override void StatusOfEntity () {
         var temp = Random.value;
         status = temp > 0.5;
-        img.sprite = status ? red : white;
-
+        img.sprite = status ? white : red;
+        
     }
 
-    public override void PlaySoundOnClick() {
-        SoundController.inst.PlaySoundKickBeaver();
+   public override void PlaySoundOnClick() {
+        SoundController.inst.PlaySoundForKick();
     }
 
     public override void CountPointsOrLivesForClick() {
@@ -39,7 +40,7 @@ public class Beaver: Entity {
     }
 
     public void Start () {
-        StatusOfBeaver();
+        StatusOfEntity();
     }
 
 }

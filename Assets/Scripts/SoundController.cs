@@ -6,7 +6,7 @@ namespace Assets.Scripts {
         public AudioSource backgroundMusic;
         public AudioSource effects;
 
-        public bool statusOfSound = true;
+        public bool statusOfSound;
 
         public Sprite soundOff;
         public Sprite soundOn;
@@ -26,16 +26,12 @@ namespace Assets.Scripts {
             
         }
 
-        public void PlaySoundKickBeaver() {
+        public void PlaySoundForKick() {
             effects.PlayOneShot(kickBeaver);
         }
 
 
         public void SwitchSound () {
-            
-            backgroundMusic.mute = statusOfSound;
-            effects.mute = statusOfSound;
-            
             if(statusOfSound) {
                 UI.inst.btnSound.image.sprite = soundOff;
                 statusOfSound = false;
@@ -44,7 +40,8 @@ namespace Assets.Scripts {
                 UI.inst.btnSound.image.sprite = soundOn;
                 statusOfSound = true;
             }
-
+            backgroundMusic.mute = !statusOfSound;
+            effects.mute = !statusOfSound;
             PlayerPrefs.SetInt("State of sound", statusOfSound ? 1 : 0);
             PlayerPrefs.Save();
         }
@@ -54,6 +51,7 @@ namespace Assets.Scripts {
             backgroundMusic.Play();
             backgroundMusic.loop = true;
             backgroundMusic.mute = PlayerPrefs.GetInt("State of sound", 1) != 1;
+            effects.mute = PlayerPrefs.GetInt("State of sound", 1) != 1;
             UI.inst.btnSound.image.sprite = PlayerPrefs.GetInt("State of sound", 1) == 1 ? soundOn : soundOff;
         }
 
