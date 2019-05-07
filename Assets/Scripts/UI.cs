@@ -20,6 +20,10 @@ public class UI: MonoBehaviour
 
     public static UI inst;
 
+    public void ChangeTheScene(string nameScene) {
+        SceneManager.LoadScene(nameScene, LoadSceneMode.Single);
+    }
+
     void Awake() {
         inst = this;
     }
@@ -28,8 +32,8 @@ public class UI: MonoBehaviour
 
         btnRules.onClick.RemoveAllListeners();
         btnRules.onClick.AddListener(() => {
-            SceneManager.LoadScene("rules", LoadSceneMode.Single);
-        });
+            ChangeTheScene("rules");
+            });
 
         btnTwitter.onClick.RemoveAllListeners();
         btnTwitter.onClick.AddListener(() => {
@@ -38,7 +42,7 @@ public class UI: MonoBehaviour
 
         btnPlayGame.onClick.RemoveAllListeners();
         btnPlayGame.onClick.AddListener(() => {
-            SceneManager.LoadScene("game", LoadSceneMode.Single);
+            ChangeTheScene("game");
         });
 
         btnTwitter.onClick.RemoveAllListeners();
