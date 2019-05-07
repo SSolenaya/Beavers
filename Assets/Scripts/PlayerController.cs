@@ -1,18 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts {
 
-    public class PlayerController : MonoBehaviour {
+    public class PlayerController: MonoBehaviour {
         public static PlayerController inst;
 
         public bool alive = true; // наличие жизней
         public Text currentScoreText;
         public Text highScoreText;
-        [SerializeField]private int highScore;
+        [SerializeField] private int highScore;
         public int points;
         public float coefMultiplying = GP.coefSeries;
         private int _lives;
@@ -21,50 +19,41 @@ namespace Assets.Scripts {
             set => _lives = value;
         }
         public List<Heart> hearts = new List<Heart>(GP.numOfLives);
-        //public Coroutine coroHearts;
-        
-       
 
-       /* public void StopCoroHearts() {
-            if (coroHearts != null) {
-                StopCoroutine(coroHearts);
-                coroHearts = null;
-            }
-        }*/
-        public void ScoreMultiplier(bool action) {
-            if (action) {
-                points += (int) (coefMultiplying * GP.pointsForBeaver);
+        public void ScoreMultiplier (bool action) {
+            if(action) {
+                points += (int)(coefMultiplying * GP.pointsForBeaver);
                 coefMultiplying += GP.deltaCoefSeries;
-                }
-            else {
+            } else {
                 coefMultiplying = GP.coefSeries;
             }
         }
-        public int CountPoints() {
+
+        public int CountPoints () {
             ScoreMultiplier(true);
             ShowScore(points);
             return points;
 
         }
 
-        public void CountLives() {
+        public void CountLives () {
             ScoreMultiplier(false);
             lives -= 1;
-           // StopCoroHearts();
             hearts[lives].HideHearts();
-            if (_lives > 0) return;
+            if(_lives > 0)
+                return;
             alive = false;
             MainLogic.inst.GameEnd();
         }
 
-        void Awake() {
+        void Awake () {
             inst = this;
-         }
+        }
 
-        public void ShowScore(int p) {
-            
+        public void ShowScore (int p) {
+
             if(points <= 10000) { currentScoreText.text = "Score: " + p; }
-            if(points >= 10000 && points <= 1000000) { currentScoreText.text = "Score: " + p/1000 + "K"; }
+            if(points >= 10000 && points <= 1000000) { currentScoreText.text = "Score: " + p / 1000 + "K"; }
             if(points >= 1000000) { currentScoreText.text = "Score: " + p / 1000000 + "M"; }
 
         }
@@ -85,7 +74,7 @@ namespace Assets.Scripts {
             }
         }
 
-        public void LoadHighScoreFromPlayerPrefs() {
+        public void LoadHighScoreFromPlayerPrefs () {
             if(PlayerPrefs.HasKey("High score")) {
                 highScore = PlayerPrefs.GetInt("High score", 0);
                 ShowHighScore(highScore);
@@ -96,21 +85,21 @@ namespace Assets.Scripts {
             }
         }
 
-        public void StateOnStart() {
+        public void StateOnStart () {
             lives = GP.numOfLives;
             foreach(var heart in hearts) {
-               // StopCoroHearts();
-              heart.ShowHearts();
-             }
+                // StopCoroHearts();
+                heart.ShowHearts();
+            }
             ShowScore(points = 0);
             LoadHighScoreFromPlayerPrefs();
 
         }
 
-        void Start() {
-            
+        void Start () {
+
             StateOnStart();
-            
+
 
         }
 

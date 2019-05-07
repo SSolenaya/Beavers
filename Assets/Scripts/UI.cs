@@ -21,19 +21,19 @@ public class UI: MonoBehaviour
     public static UI inst;
 
     public void ChangeTheScene(string nameScene) {
-        SceneManager.LoadScene(nameScene, LoadSceneMode.Single);
+        SceneManager.LoadScene(nameScene);
     }
 
-    void Awake() {
+    public void Awake () {
         inst = this;
     }
 
-    void Start () {
+    public void Start () {
 
         btnRules.onClick.RemoveAllListeners();
         btnRules.onClick.AddListener(() => {
             ChangeTheScene("rules");
-            });
+        });
 
         btnTwitter.onClick.RemoveAllListeners();
         btnTwitter.onClick.AddListener(() => {

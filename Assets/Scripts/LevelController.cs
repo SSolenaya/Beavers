@@ -1,19 +1,13 @@
 ﻿using System.Collections;
-using Assets.Scripts;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets.Scripts {
     public class LevelController: MonoBehaviour {
-
-
         public static LevelController inst;
 
         void Awake () {
-
             inst = this;
         }
-
 
         public static void EasyLevel () {
             GP.timeBetweenPortions = 4;
