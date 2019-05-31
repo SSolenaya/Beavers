@@ -7,6 +7,7 @@ namespace Assets.Scripts {
         public AudioSource effects;
 
         public bool statusOfSound;
+        private string stateOfSoundTxt;
 
         public Sprite soundOff;
         public Sprite soundOn;
@@ -42,17 +43,18 @@ namespace Assets.Scripts {
             }
             backgroundMusic.mute = !statusOfSound;
             effects.mute = !statusOfSound;
-            PlayerPrefs.SetInt("State of sound", statusOfSound ? 1 : 0);
+            PlayerPrefs.SetInt(stateOfSoundTxt, statusOfSound ? 1 : 0);
             PlayerPrefs.Save();
         }
 
         public void Start () {
+            stateOfSoundTxt = "State of sound";
             backgroundMusic.clip = backgroundClip;
             backgroundMusic.Play();
             backgroundMusic.loop = true;
-            backgroundMusic.mute = PlayerPrefs.GetInt("State of sound", 1) != 1;
-            effects.mute = PlayerPrefs.GetInt("State of sound", 1) != 1;
-            UI.inst.btnSound.image.sprite = PlayerPrefs.GetInt("State of sound", 1) == 1 ? soundOn : soundOff;
+            backgroundMusic.mute = PlayerPrefs.GetInt(stateOfSoundTxt, 1) != 1;
+            effects.mute = PlayerPrefs.GetInt(stateOfSoundTxt, 1) != 1;
+            UI.inst.btnSound.image.sprite = PlayerPrefs.GetInt(stateOfSoundTxt, 1) == 1 ? soundOn : soundOff;
         }
 
     }
