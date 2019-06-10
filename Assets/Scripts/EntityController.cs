@@ -15,35 +15,32 @@ namespace Assets.Scripts {
         public List<Entity> allEntetiesOnSession = new List<Entity>();
 
         public static EntityController inst;
-        public Beaver prefabBeaver;
-        public Dog prefabDog;
+        public EntityFab entityFactory;
 
         public Coroutine coroGenEntities;
         public Entity entity;
 
-        public Entity ChooseAnAnimalPrefab () {
+        public void ChooseAnAnimalPrefab () {
             var temp = (Animals)Random.Range(0, 2);
             switch(temp) {
                 case Animals.Abeaver:
-                    return prefabBeaver;
+                    entityFactory = new BeaverFab();
+                    break;
                 case Animals.Adog:
-                    return prefabDog;
+                    entityFactory = new DogFab();
+                    break;
                 default:
-                    return prefabDog;
+                    entityFactory = new DogFab();
+                    break;
             }
         }
 
         public void SetOnField () {
             for(int i = 0; i < GP.entitiesInPortion; i++) {
-
+                ChooseAnAnimalPrefab();
                 Hole emptyHole = MapController.inst.SetEmptyHole();
                 if(emptyHole != null) {
-                    var tempEntity = ChooseAnAnimalPrefab();
-                    entity = Instantiate(tempEntity);
-                    entity.transform.SetParent(emptyHole.PositionOfHole());
-                    entity.transform.localPosition = Vector3.zero;
-                    entity.transform.localScale = Vector3.one;
-                    entity.gameObject.SetActive(true);
+                    entity = Instantiate(entityFactory.SetPrefab());
                     entity.Setup(emptyHole);
                     allEntetiesOnSession.Add(entity);
 

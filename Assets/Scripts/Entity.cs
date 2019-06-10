@@ -13,7 +13,7 @@ namespace Assets.Scripts {
         public RectTransform pic;
         public Coroutine coroLife;
         public bool status;
-        public bool isClicked = false;
+        public bool isClicked;
         public Image img;
         public Hole myHole;
 
@@ -54,10 +54,14 @@ namespace Assets.Scripts {
             pic.localPosition = new Vector3(0, finalY, 0);
         }
 
-       public void Setup (Hole h) {
+        public void Setup (Hole h) {
             myHole = h;
             myHole.isEmpty = false;
             StopCoroLife();
+            transform.SetParent(h.PositionOfHole());
+            gameObject.SetActive(true);
+            transform.localScale = Vector3.one;
+            transform.localPosition = Vector3.zero;
             coroLife = StartCoroutine(IEnumLifeOfEntity());
         }
 
